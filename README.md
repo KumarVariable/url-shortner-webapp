@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+## Frontend Application to integrate with URL shortner application ##
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a sample application to integrate with REST services which we exposed to develop our own URL shortner application.Experience quick, efficient URL shortening with a user-friendly interface.
 
-## Available Scripts
+[Download URL Shortner REST App](https://github.com/KumarVariable/go-for-url-shortner).
 
-In the project directory, you can run:
+## Prerequisites ##
 
-### `npm start`
+- [Node.js, NPM, NPX](https://nodejs.org/en/download).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Clone, Build and Deploy the REST application. [Here](https://github.com/KumarVariable/go-for-url-shortner).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 
 
-### `npm test`
+### Getting Started with Create React App ###
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project was bootstrapped with [Create React App](https://create-react-app.dev/docs/getting-started/).
 
-### `npm run build`
+### Build and Run Application ###
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. To Build Project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```text
+npm i --legacy-peer-deps
+```
+2. To Run the application in the development mode:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```text
+npm start
+```
+3. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.The page will reload when you make changes.
 
-### `npm run eject`
+![Browser Running|480x250, 75%](docs/images/url_shortner_frontend.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Perform URL Shortner Operations ###
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. The URL Shortner REST application must be on [http://localhost:9999/test](http://localhost:9999/test)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. To test the REST services application. Click on button `Test URL Shortner Service`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Test URL Shortner App|480x250, 75%](docs/images/test_url_shortner_service.png)
 
-## Learn More
+3. To Create Short URL: Provide the Long URL. Click on button `Create`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Create Short URL|480x250, 75%](docs/images/create_short_url.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Click on Short URL to be redirected to the Long URL.
 
-### Code Splitting
+4. To Get Short URL: Provide the Long URL to get Short URL details. Click on button `Get`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Get Short URL|480x250, 75%](docs/images/get_short_url.png)
 
-### Analyzing the Bundle Size
+5. To Update Short URL: Provide the Long URL to update Short URL. Click on button `Update`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Update Short URL|480x250, 75%](docs/images/update_short_url.png)
 
-### Making a Progressive Web App
+6. To Delete Short URL: Provide the Long URL to delete Short URL. Click on button `Delete`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Delete Short URL|480x250, 75%](docs/images/delete_short_url.png)
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Happy Learning !**

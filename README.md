@@ -2,15 +2,13 @@
 
 This is a sample application to integrate with REST services which we exposed to develop our own URL shortner application.Experience quick, efficient URL shortening with a user-friendly interface.
 
-[Download URL Shortner REST App](https://github.com/KumarVariable/go-for-url-shortner).
+[Download URL Shortner REST App](https://github.com/KumarVariable/go-for-url-shortner "Hold `Ctrl` or `Cmd` on the keyboard while clicking the link, to open link in new Tab").
 
 ## Prerequisites ##
 
 - [Node.js, NPM, NPX](https://nodejs.org/en/download).
 
 - Clone, Build and Deploy the REST application. [Here](https://github.com/KumarVariable/go-for-url-shortner).
-
-- 
 
 ### Getting Started with Create React App ###
 

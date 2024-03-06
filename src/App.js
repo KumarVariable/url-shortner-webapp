@@ -9,11 +9,34 @@ import {
   updateShortUrl,
 } from "./apiServices";
 
+import { CustomUrlModal, ValidateShortUrl } from "./customUrlModal";
+
 function App() {
   const [longUrl, setLongUrl] = useState("");
   const [getResponseData, setResponseData] = useState(null); // State to store the response data
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [customUrlData, setCustomUrlData] = useState({
+    keyId: "",
+    longUrl: "",
+  }); // State to store custom URL data
+
+  // Define function to toggle modal visibility
+  const toggleModal = () => {
+    customUrlData.keyId = "";
+    customUrlData.longUrl = "";
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleCustomCreate = async () => {
+    console.log(customUrlData);
+
+    if (ValidateShortUrl(customUrlData.keyId, customUrlData.longUrl)) {
+      toggleModal();
+    }
+  };
 
   const handleTestCall = async () => {
+    handleModalVisibility();
     try {
       const response = await testCall();
       if (response) {
@@ -30,7 +53,11 @@ function App() {
   };
 
   const handleGetShortUrl = async () => {
+    handleModalVisibility();
     try {
+      if (!validateInput()) {
+        return;
+      }
       const responseData = await getShortUrl(longUrl);
       setResponseData(responseData);
     } catch (error) {
@@ -46,7 +73,11 @@ function App() {
   };
 
   const handleCreateShortUrl = async () => {
+    handleModalVisibility();
     try {
+      if (!validateInput()) {
+        return;
+      }
       let responseData = await createShortUrl(longUrl);
       setResponseData(responseData);
     } catch (error) {
@@ -63,9 +94,13 @@ function App() {
   };
 
   const handleUpdateShortUrl = async () => {
+    handleModalVisibility();
     try {
+      if (!validateInput()) {
+        return;
+      }
       const responseData = await updateShortUrl(longUrl);
-      setResponseData(responseData)
+      setResponseData(responseData);
     } catch (error) {
       console.log(error);
       if (error.response) {
@@ -83,7 +118,11 @@ function App() {
   };
 
   const handleDeleteShortUrl = async () => {
+    handleModalVisibility();
     try {
+      if (!validateInput()) {
+        return;
+      }
       const response = await deleteShortUrl(longUrl);
       console.log("Response for delete long url" + response);
       alert("Record removed with status code " + response.status);
@@ -103,29 +142,62 @@ function App() {
     }
   };
 
+  function validateInput() {
+    if (!longUrl.trim()) {
+      alert("Please enter a long URL.");
+      return false;
+    }
+    return true;
+  }
+
+  function handleModalVisibility() {
+    if (isModalOpen) {
+      toggleModal();
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>A Sample Application to Create Short URLs</h1>
+        <div className="test-button-group">
+          <button onClick={handleTestCall}>Test URL Shortener Service</button>
+        </div>
         <div>
-          <label htmlFor="longUrl" className="Form-label">
-            Long URL
-          </label>
           <input
             type="text"
+            className="input-field"
             id="longUrl"
             name="longUrl"
             value={longUrl}
             onChange={(e) => setLongUrl(e.target.value)}
             placeholder="Enter long URL here"
           />
+          <button className="action-button" onClick={handleGetShortUrl}>
+            Get
+          </button>
+          <button className="action-button" onClick={handleCreateShortUrl}>
+            Create
+          </button>
+          <button className="action-button" onClick={handleUpdateShortUrl}>
+            Update
+          </button>
+          <button className="action-button" onClick={handleDeleteShortUrl}>
+            Delete
+          </button>
         </div>
-        <div className="Button-group">
-          <button onClick={handleTestCall}>Test URL Shortner Service</button>
-          <button onClick={handleGetShortUrl}>Get</button>
-          <button onClick={handleCreateShortUrl}>Create</button>
-          <button onClick={handleUpdateShortUrl}>Update</button>
-          <button onClick={handleDeleteShortUrl}>Delete</button>
+
+        <div>
+          <button className="action-button" onClick={toggleModal}>
+            Create Custom URL
+          </button>
+          <CustomUrlModal
+            isOpen={isModalOpen}
+            onClose={toggleModal}
+            onCustomCreate={handleCustomCreate}
+            customUrlData={customUrlData}
+            setCustomUrlData={setCustomUrlData}
+          />
         </div>
 
         {getResponseData && (

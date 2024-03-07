@@ -29,7 +29,7 @@ input[type="text"] {
 
 .action-button {
   min-width: 100px;
-  height: 35px;
+  height: 30px;
   padding: 0 15px; /* allowing text to fit */
   margin-bottom: 20px;
   margin-left: 5px;
@@ -63,7 +63,10 @@ input[type="text"] {
 .styledTable td, .styledTable th {
   border: 1px solid #009879; /* sample color, adjust as needed */
   padding: 8px;
-  word-wrap: break-word; /* To ensure text fits within cells */
+  /* word-wrap: break-word; /* To ensure text fits within cells */
+  white-space: nowrap; /* Prevents the text from wrapping into the next line */
+  overflow: hidden; /* Keeps the content from spilling out */
+  text-overflow: ellipsis; /* Adds an ellipsis if the text is too long to fit */
 }
 
 .styledTable tr:nth-child(even){background-color: #f2f2f2;}

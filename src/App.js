@@ -9,7 +9,11 @@ import {
   updateShortUrl,
 } from "./apiServices";
 
-import { CustomUrlModal, ValidateShortUrl } from "./customUrlModal";
+import {
+  CreateCustomShortUrl,
+  CustomUrlModal,
+  ValidateShortUrl,
+} from "./customUrlModal";
 
 function App() {
   const [longUrl, setLongUrl] = useState("");
@@ -31,7 +35,25 @@ function App() {
     console.log(customUrlData);
 
     if (ValidateShortUrl(customUrlData.keyId, customUrlData.longUrl)) {
-      toggleModal();
+      // toggleModal();
+      try {
+        let responseData = await CreateCustomShortUrl(
+          customUrlData.keyId,
+          customUrlData.longUrl
+        );
+        setResponseData(responseData);
+      } catch (error) {
+        if (error.response) {
+          let errData = error.response.data;
+          let errCode = error.response.status;
+          let errMsg = error.response.statusText;
+
+          console.log(
+            "Response for create custom short url: " + errCode + "-" + errMsg
+          );
+          alert("Error to create custom short url call: " + errData.ErrMsg);
+        }
+      }
     }
   };
 
@@ -159,10 +181,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>A Sample Application to Create Short URLs</h1>
-        <div className="test-button-group">
-          <button onClick={handleTestCall}>Test URL Shortener Service</button>
-        </div>
+        <h2>A Sample Application to Create Short URLs</h2>
         <div>
           <input
             type="text"
@@ -188,6 +207,7 @@ function App() {
         </div>
 
         <div>
+          <button className="action-button" onClick={handleTestCall}>Test URL Shortener Service</button>
           <button className="action-button" onClick={toggleModal}>
             Create Custom URL
           </button>

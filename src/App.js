@@ -14,6 +14,7 @@ import {
   CustomUrlModal,
   ValidateShortUrl,
 } from "./customUrlModal";
+import { CountMetricsModal, ClickCountMetrics } from "./countMetricsModal";
 
 function App() {
   const [longUrl, setLongUrl] = useState("");
@@ -24,11 +25,23 @@ function App() {
     longUrl: "",
   }); // State to store custom URL data
 
+  // State to control 'Get Count Metrics' modal visibility
+  const [isCountMetricsModalOpen, setIsCountMetricsModalOpen] = useState(false);
+  const [countMetricsData, setCountMetricsRequest] = useState({
+    shortUrlId: "",
+  });
+
   // Define function to toggle modal visibility
   const toggleModal = () => {
+    handleCountMetricsModalVisibility();
     customUrlData.keyId = "";
     customUrlData.longUrl = "";
     setIsModalOpen(!isModalOpen);
+  };
+
+  const toggleCountMetricsModal = () => {
+    handleModalVisibility();
+    setIsCountMetricsModalOpen(!isCountMetricsModalOpen);
   };
 
   const handleCustomCreate = async () => {
@@ -164,6 +177,31 @@ function App() {
     }
   };
 
+  const handleSubmitMetrics = async () => {
+    // console.log(countMetricsData.shortUrlId);
+
+    let shortUrlId = countMetricsData.shortUrlId;
+
+    if (ValidateShortUrl(shortUrlId, shortUrlId)) {
+      try {
+        let responseData = await ClickCountMetrics(shortUrlId);
+
+        alert(responseData.message);
+
+        toggleCountMetricsModal();
+      } catch (error) {
+        let errData = error.response.data;
+        let errCode = error.response.status;
+        let errMsg = error.response.statusText;
+
+        console.log(
+          "Response for total count of clicks: " + errCode + "-" + errMsg
+        );
+        alert("Error to get total count of clicks: " + errData.ErrMsg);
+      }
+    }
+  };
+
   function validateInput() {
     if (!longUrl.trim()) {
       alert("Please enter a long URL.");
@@ -175,6 +213,12 @@ function App() {
   function handleModalVisibility() {
     if (isModalOpen) {
       toggleModal();
+    }
+  }
+
+  function handleCountMetricsModalVisibility() {
+    if (isCountMetricsModalOpen) {
+      toggleCountMetricsModal();
     }
   }
 
@@ -207,9 +251,14 @@ function App() {
         </div>
 
         <div>
-          <button className="action-button" onClick={handleTestCall}>Test URL Shortener Service</button>
+          <button className="action-button" onClick={handleTestCall}>
+            Test URL Shortener Service
+          </button>
           <button className="action-button" onClick={toggleModal}>
             Create Custom URL
+          </button>
+          <button className="action-button" onClick={toggleCountMetricsModal}>
+            Get Count Metrics
           </button>
           <CustomUrlModal
             isOpen={isModalOpen}
@@ -217,6 +266,13 @@ function App() {
             onCustomCreate={handleCustomCreate}
             customUrlData={customUrlData}
             setCustomUrlData={setCustomUrlData}
+          />
+          <CountMetricsModal
+            isOpen={isCountMetricsModalOpen}
+            onMetricsModalClose={toggleCountMetricsModal}
+            onSubmitBtn={handleSubmitMetrics}
+            countMetricsData={countMetricsData}
+            setCountMetricsRequest={setCountMetricsRequest}
           />
         </div>
 
